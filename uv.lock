@@ -350,6 +350,9 @@ dependencies = [
 dev = [
     { name = "pylint-django" },
 ]
+prod = [
+    { name = "daphne" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -360,6 +363,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [{ name = "pylint-django", specifier = ">=2.8.0" }]
+prod = [{ name = "daphne", specifier = ">=4.2.3" }]
 
 [[package]]
 name = "mccabe"
