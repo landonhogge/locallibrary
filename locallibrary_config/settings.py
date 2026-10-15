@@ -28,7 +28,7 @@ env.read_env(str(BASE_DIR / ".env"))
 SECRET_KEY = 'django-insecure-%s-8sj3zgkcn@5-93)n=#fjhkpws*$z_!yb#1+l^w^8zfrqum&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,3 +142,4 @@ MAILERS = {
 # Daphne
 ASGI_APPLICATION = "locallibrary_config.asgi.application"
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
