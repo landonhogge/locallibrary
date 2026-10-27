@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Author, Genre, Book, BookInstance, Language
+from .models import Author, Genre, Book, BookInstance, Language, BookAuthor
 
 """Minimal registration of Models.
 admin.site.register(Book)
@@ -14,12 +14,17 @@ admin.site.register(Language)
 
 admin.site.register(Genre)
 admin.site.register(Language)
+admin.site.register(BookAuthor)
 
 
-class BooksInline(admin.TabularInline):
-    """Defines format of inline book insertion (used in AuthorAdmin)"""
-    model = Book
+# class BooksInline(admin.TabularInline):
+#     """Defines format of inline book insertion (used in AuthorAdmin)"""
+#     model = Book
 
+class BookAuthorInline(admin.TabularInline):
+    """Edit the book/author links inline (used in AuthorAdmin and BookAdmin)"""
+    model = BookAuthor
+    extra = 1
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -33,7 +38,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('last_name',
                     'first_name', 'date_of_birth', 'date_of_death')
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
-    inlines = [BooksInline]
+    inlines = [BookAuthorInline]
 
 
 class BooksInstanceInline(admin.TabularInline):
@@ -47,8 +52,8 @@ class BookAdmin(admin.ModelAdmin):
      - fields to be displayed in list view (list_display)
      - adds inline addition of book instances in book view (inlines)
     """
-    list_display = ('title', 'author', 'display_genre')
-    inlines = [BooksInstanceInline]
+    list_display = ('title', 'display_genre')
+    inlines = [BookAuthorInline, BooksInstanceInline]
 
 
 admin.site.register(Book, BookAdmin)
@@ -73,3 +78,7 @@ class BookInstanceAdmin(admin.ModelAdmin):
             'fields': ('status', 'due_back', 'borrower')
         }),
     )
+
+@admin.register(BookAuthor)
+class BookAuthorAdmin(admin.ModelAdmin):
+    list_display = ('book', 'author')

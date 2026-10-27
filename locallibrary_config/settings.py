@@ -38,7 +38,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
+    # 'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'chat',
+    'ninja',
 ]
 
 MIDDLEWARE = [
@@ -138,8 +139,20 @@ MAILERS = {
     },
 }
 
-# locallibrary_config/settings.py
-# Daphne
+# Channels
 ASGI_APPLICATION = "locallibrary_config.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                {
+                    "address": env("REDIS_URL"),
+                    "socket_timeout": env.int("REDIS_SOCKET_TIMEOUT"),
+                }
+            ],
+        },
+    },
+}
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
