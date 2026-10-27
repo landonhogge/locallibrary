@@ -168,7 +168,7 @@ class BookAuthor(models.Model):
     """Model representing a book's author"""
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     author = models.ForeignKey('Author', on_delete=models.RESTRICT, null=True)
-    author_order: int
+    author_order = models.IntegerField()
 
     def __str__(self):
         """String for representing the Model object."""
