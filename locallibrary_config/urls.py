@@ -45,6 +45,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 from .api import api
 
@@ -54,4 +55,10 @@ urlpatterns += [
 
 urlpatterns += [
     path('accounts/', include('allauth.urls')),
+]
+
+from taskflow.api import api as taskflow_api
+
+urlpatterns += [
+    path('taskflow/api/', taskflow_api.urls),
 ]

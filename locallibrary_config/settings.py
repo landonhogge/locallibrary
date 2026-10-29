@@ -29,7 +29,7 @@ env.read_env(str(BASE_DIR / ".env"))
 SECRET_KEY = 'django-insecure-%s-8sj3zgkcn@5-93)n=#fjhkpws*$z_!yb#1+l^w^8zfrqum&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'ninja',
     'allauth',
     'allauth.account',
+    'projects',
+    'tasks',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -139,6 +142,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# User-uploaded files
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Email
