@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,4 +50,8 @@ from .api import api
 
 urlpatterns += [
     path('api/', api.urls),
+]
+
+urlpatterns += [
+    path('accounts/', include('allauth.urls')),
 ]
