@@ -1,12 +1,10 @@
 from ninja import NinjaAPI
+from chat.api import router as rooms_router
 
-api = NinjaAPI()
+api = NinjaAPI(
+    title="TaskFlow API",
+    version="1.0",
+    description="API for managing projects and tasks.",
+)
 
-
-@api.get("/hello")
-def hello(request, name: str = "world"):
-    return {"message": f"Hello, {name}!"}
-
-@api.get("/add")
-def add(request, a: int, b: int):
-    return {"result": a + b}
+api.add_router("/rooms", rooms_router)
