@@ -3,7 +3,7 @@ from typing import Annotated
 
 from django.db.models import Q
 from django.utils import timezone
-from ninja import FilterLookup, FilterSchema, ModelSchema, Schema
+from ninja import Field, FilterLookup, FilterSchema, ModelSchema, Schema
 
 from .models import Message, Room
 
@@ -40,6 +40,12 @@ class Conflict(Schema):
 
 
 class RoomFilter(FilterSchema):
-    search: str | None = None
-    topic: str | None = None
+    search: str | None = Field(None, q="name__icontains")
+    topic: str | None = Field(None, q="topic__icontains")
     recent: bool | None = None
+
+    def filter_recent(self, value: bool) -> Q:
+        cutoff = timezone.now() - timedelta(days=7)
+        if value:
+            return Q(created_at__gte=cutoff)
+        return Q(created_at__lt=cutoff)
