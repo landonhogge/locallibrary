@@ -62,3 +62,11 @@ from taskflow.api import api as taskflow_api
 urlpatterns += [
     path('taskflow/api/', taskflow_api.urls),
 ]
+
+# Mount the TaskFlow API from the Django Ninja Tutorial
+from taskflow.api import api as taskflow_api, api_v2 as taskflow_api_v2
+
+urlpatterns += [
+    path('taskflow/api/v2/', taskflow_api_v2.urls),
+    path('taskflow/api/', taskflow_api.urls),
+]
