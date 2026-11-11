@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'projects',
     'tasks',
     'accounts',
+    'profiles.apps.ProfilesConfig',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.openid_connect',
